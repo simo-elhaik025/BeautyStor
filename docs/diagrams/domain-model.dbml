@@ -1,0 +1,150 @@
+Table Category [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	name varchar
+	slug varchar
+	parent_id bigint
+	isActive boolean
+}
+
+Table Brand [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	name varchar
+	slug varchar
+	logoUrl varchar
+}
+
+Table Product [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	name varchar
+	slug varchar
+	description text
+	brand_id bigint
+	category_id bigint
+	basePrice decimal
+	isAvailable boolean
+	attributes json
+}
+
+Table ProductVariant [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	product_id bigint
+	sku varchar
+	displayName varchar
+	price decimal
+	stockQuantity int
+	attributes json
+}
+
+Table ProductImage [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	product_id bigint
+	url varchar
+	sortOrder int
+	isPrimary boolean
+}
+
+Table User [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	email varchar
+	passwordHash varchar
+	role varchar
+	firstName varchar
+	lastName varchar
+	phone varchar
+	isActive boolean
+}
+
+Table Address [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	user_id bigint
+	fullAddress text
+	city varchar
+	postalCode varchar
+	phone varchar
+	isDefault boolean
+}
+
+Table Cart [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	user_id bigint
+	session_id varchar
+	status varchar
+}
+
+Table CartItem [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	cart_id bigint
+	product_variant_id bigint
+	quantity int
+	snapshotPrice decimal
+}
+
+Table Order [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	orderNumber varchar
+	user_id bigint
+	status varchar
+	paymentMethod varchar
+	shippingAddressSnapshot json
+	totalAmount decimal
+	deliveryNotes varchar
+	createdAt timestamp
+}
+
+Table OrderItem [headercolor: #175e7a] {
+	id bigint [ pk, increment, unique ]
+	order_id bigint
+	product_variant_id bigint
+	productNameSnapshot varchar
+	productVariantSku varchar
+	quantity int
+	priceAtPurchase decimal
+}
+
+Ref fk_Category_parent_id_Category {
+	Category.parent_id > Category.id [ delete: no action, update: no action ]
+}
+
+Ref fk_Product_category_id_Category {
+	Product.category_id > Category.id [ delete: no action, update: no action ]
+}
+
+Ref fk_Product_brand_id_Brand {
+	Product.brand_id > Brand.id [ delete: no action, update: no action ]
+}
+
+Ref fk_ProductVariant_product_id_Product {
+	ProductVariant.product_id > Product.id [ delete: no action, update: no action ]
+}
+
+Ref fk_ProductImage_product_id_Product {
+	ProductImage.product_id > Product.id [ delete: no action, update: no action ]
+}
+
+Ref fk_Address_user_id_User {
+	Address.user_id > User.id [ delete: no action, update: no action ]
+}
+
+Ref fk_Cart_user_id_User {
+	Cart.user_id > User.id [ delete: no action, update: no action ]
+}
+
+Ref fk_Order_user_id_User {
+	Order.user_id > User.id [ delete: no action, update: no action ]
+}
+
+Ref fk_CartItem_cart_id_Cart {
+	CartItem.cart_id > Cart.id [ delete: no action, update: no action ]
+}
+
+Ref fk_CartItem_product_variant_id_ProductVariant {
+	CartItem.product_variant_id > ProductVariant.id [ delete: no action, update: no action ]
+}
+
+Ref fk_OrderItem_order_id_Order {
+	OrderItem.order_id > Order.id [ delete: no action, update: no action ]
+}
+
+Ref fk_OrderItem_product_variant_id_ProductVariant {
+	OrderItem.product_variant_id > ProductVariant.id [ delete: no action, update: no action ]
+}
