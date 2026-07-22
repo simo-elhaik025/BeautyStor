@@ -1,0 +1,24 @@
+info:
+  name: Update Category - Invalid Request
+  type: http
+  seq: 7
+
+http:
+  method: PUT
+  url: localhost:8080/api/categories/1
+  body:
+    type: json
+    data: |-
+      {
+        "name": "",
+        "slug": "",
+        "parentId": -1,
+        "active": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

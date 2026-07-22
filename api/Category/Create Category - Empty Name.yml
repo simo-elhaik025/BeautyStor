@@ -1,0 +1,24 @@
+info:
+  name: Create Category - Empty Name
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: localhost:8080/api/categories
+  body:
+    type: json
+    data: |-
+      {
+        "name": "",
+        "slug": "makeup",
+        "parentId": null,
+        "active": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

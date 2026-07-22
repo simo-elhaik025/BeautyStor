@@ -1,7 +1,7 @@
 opencollection: 1.0.0
 
 info:
-  name: beautystor
+  name: Category
 bundled: false
 extensions:
   bruno:
