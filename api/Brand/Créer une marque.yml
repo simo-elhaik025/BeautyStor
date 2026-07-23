@@ -4,8 +4,16 @@ info:
   seq: 1
 
 http:
-  method: GET
-  url: ""
+  method: POST
+  url: localhost:8080/api/brands
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Boss-2",
+        "slug": "boss-2",
+        "logoUrl": "https://example.com/logos/Boss.png"
+      }
   auth: inherit
 
 settings:

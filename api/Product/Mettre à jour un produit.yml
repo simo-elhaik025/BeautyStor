@@ -1,0 +1,27 @@
+info:
+  name: Mettre à jour un produit
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: localhost:8080/api/products/1
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Hydrating Face Cream Premium",
+        "slug": "hydrating-face-cream-premium",
+        "description": "Improved moisturizing cream",
+        "brandId": 1,
+        "categoryId": 6,
+        "basePrice": 179.99,
+        "isAvailable": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

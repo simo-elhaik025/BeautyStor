@@ -5,7 +5,7 @@ info:
 
 http:
   method: DELETE
-  url: localhost:8080/api/brands/1
+  url: localhost:8080/api/brands/2
   auth: inherit
 
 settings:

@@ -1,11 +1,11 @@
 info:
-  name: Lister toutes les marques
+  name: Lister tous les produits
   type: http
   seq: 2
 
 http:
   method: GET
-  url: localhost:8080/api/brands
+  url: localhost:8080/api/products
   auth: inherit
 
 settings:

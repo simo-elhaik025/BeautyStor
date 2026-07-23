@@ -1,11 +1,11 @@
 info:
-  name: Lister toutes les marques
+  name: Supprimer un produit
   type: http
-  seq: 2
+  seq: 5
 
 http:
-  method: GET
-  url: localhost:8080/api/brands
+  method: DELETE
+  url: localhost:8080/api/products/2
   auth: inherit
 
 settings:

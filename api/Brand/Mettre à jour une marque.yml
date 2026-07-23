@@ -6,6 +6,14 @@ info:
 http:
   method: PUT
   url: localhost:8080/api/brands/1
+  body:
+    type: json
+    data: |-
+      {
+        "name": "L'Oréal Paris",
+        "slug": "loreal-paris",
+        "logoUrl": "https://example.com/logos/loreal-paris.png"
+      }
   auth: inherit
 
 settings:

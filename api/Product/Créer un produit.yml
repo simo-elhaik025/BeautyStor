@@ -1,0 +1,27 @@
+info:
+  name: Créer un produit
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: localhost:8080/api/products
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Hydrating Face Cream",
+        "slug": "hydrating-face-cream",
+        "description": "Daily moisturizing cream",
+        "brandId": 1,
+        "categoryId": 6,
+        "basePrice": 149.99,
+        "isAvailable": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
