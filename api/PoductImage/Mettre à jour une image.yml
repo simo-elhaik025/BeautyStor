@@ -5,7 +5,16 @@ info:
 
 http:
   method: PUT
-  url: localhost:8080/api/product-images/1
+  url: localhost:8080/api/product-images/7
+  body:
+    type: json
+    data: |-
+      {
+        "productId": 1,
+        "url": "https://example.com/images/product-1-updated.jpg",
+        "sortOrder": 5,
+        "primary": false
+      }
   auth: inherit
 
 settings:

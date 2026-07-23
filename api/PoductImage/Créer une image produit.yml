@@ -6,6 +6,15 @@ info:
 http:
   method: POST
   url: localhost:8080/api/product-images
+  body:
+    type: json
+    data: |-
+      {
+        "productId": 1,
+        "url": "https://example.com/images/product-3.jpg",
+        "sortOrder":3,
+        "primary": false
+      }
   auth: inherit
 
 settings:

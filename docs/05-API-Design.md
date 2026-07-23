@@ -374,6 +374,109 @@ Each product belongs to one category and one brand.
   "isAvailable": true
 }
 ```
+---
+
+# Product Image API
+
+## Overview
+
+The Product Image API provides endpoints to manage images associated with products.
+
+Each image belongs to one product.
+
+---
+
+## Endpoints
+
+### Create Product Image
+
+- **HTTP Method:** `POST`
+- **URL:** `/api/product-images`
+- **Request DTO:** `CreateProductImageRequest`
+- **Response DTO:** `ApiResponse<ProductImageResponse>`
+- **Expected HTTP Status:** `201 Created`
+
+---
+
+### Get All Product Images
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/product-images`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<List<ProductImageResponse>>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Get Product Image by ID
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/product-images/{id}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<ProductImageResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Update Product Image
+
+- **HTTP Method:** `PUT`
+- **URL:** `/api/product-images/{id}`
+- **Request DTO:** `UpdateProductImageRequest`
+- **Response DTO:** `ApiResponse<ProductImageResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Delete Product Image
+
+- **HTTP Method:** `DELETE`
+- **URL:** `/api/product-images/{id}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<Void>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+## DTOs
+
+### CreateProductImageRequest
+
+```json
+{
+  "productId": "long (required)",
+  "imageUrl": "string (required)",
+  "altText": "string (optional)",
+  "displayOrder": "integer (optional)",
+  "isPrimary": "boolean"
+}
+```
+
+### UpdateProductImageRequest
+
+```json
+{
+  "productId": "long (required)",
+  "imageUrl": "string (required)",
+  "altText": "string (optional)",
+  "displayOrder": "integer (optional)",
+  "isPrimary": "boolean"
+}
+```
+
+### ProductImageResponse
+
+```json
+{
+  "id": 1,
+  "productId": 1,
+  "imageUrl": "https://example.com/images/product-1.jpg",
+  "altText": "Front view",
+  "displayOrder": 1,
+  "isPrimary": true
+}
+```
+
 
 ## Statut
 
