@@ -1,3 +1,9 @@
 # 05-API-Design
 
-À compléter.
+## Brand API
+
+POST   /api/brands
+GET    /api/brands
+GET    /api/brands/{id}
+PUT    /api/brands/{id}
+DELETE /api/brands/{id}
