@@ -10,8 +10,8 @@ Sprint 0 — Préparation
 Sprint 1 — Catalogue
 ────────────────────────
 Done□ Gestion des catégories
-□ Gestion des marques
-□ Gestion des produits
+Done□ Gestion des marques
+Done□ Gestion des produits
 □ Gestion des images
 □ Gestion des variantes
 □ Gestion des stocks
