@@ -4,6 +4,7 @@ import com.beautystor.dto.productimage.CreateProductImageRequest;
 import com.beautystor.dto.productimage.UpdateProductImageRequest;
 import com.beautystor.dto.productimage.ProductImageResponse;
 import com.beautystor.entity.ProductImage;
+import com.beautystor.exception.ProductImageException;
 import com.beautystor.repository.ProductImageRepository;
 import com.beautystor.repository.ProductRepository;
 import com.beautystor.service.ProductImageService;
@@ -22,6 +23,8 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     public ProductImageResponse create(CreateProductImageRequest request) {
         validateProduct(request.getProductId());
+        validatePrimaryImage(request.getProductId(), request.getPrimary());
+        validateSortOrder(request.getProductId(), request.getSortOrder());
 
         ProductImage productImage = new ProductImage();
         productImage.setProductId(request.getProductId());
@@ -56,6 +59,8 @@ public class ProductImageServiceImpl implements ProductImageService {
                 .orElseThrow(() -> new IllegalArgumentException("ProductImage with ID " + id + " not found"));
 
         validateProduct(request.getProductId());
+        validatePrimaryImageForUpdate(request.getProductId(), request.getPrimary(), id);
+        validateSortOrderForUpdate(request.getProductId(), request.getSortOrder(), id);
 
         productImage.setProductId(request.getProductId());
         productImage.setUrl(request.getUrl());
@@ -80,6 +85,58 @@ public class ProductImageServiceImpl implements ProductImageService {
             boolean productExists = productRepository.existsById(productId);
             if (!productExists) {
                 throw new IllegalArgumentException("Product with ID " + productId + " does not exist");
+            }
+        }
+    }
+
+    private void validatePrimaryImage(long productId, Boolean isPrimary) {
+        if (isPrimary != null && isPrimary) {
+            boolean existsPrimary = productImageRepository.existsPrimaryImageForProduct(productId);
+            if (existsPrimary) {
+                throw new ProductImageException(
+                    "Product with ID " + productId + " already has a primary image. " +
+                    "A product can have at most one primary image."
+                );
+            }
+        }
+    }
+
+    private void validatePrimaryImageForUpdate(long productId, Boolean isPrimary, long currentImageId) {
+        if (isPrimary != null && isPrimary) {
+            boolean existsPrimary = productImageRepository.existsPrimaryImageForProduct(productId);
+            if (existsPrimary) {
+                // Check if the existing primary image is the current one being updated
+                ProductImage currentImage = productImageRepository.findById(currentImageId).orElse(null);
+                if (currentImage != null && !currentImage.isPrimary()) {
+                    throw new ProductImageException(
+                        "Product with ID " + productId + " already has a primary image. " +
+                        "A product can have at most one primary image."
+                    );
+                }
+            }
+        }
+    }
+
+    private void validateSortOrder(long productId, Integer sortOrder) {
+        if (sortOrder != null) {
+            boolean existsSortOrder = productImageRepository.existsSortOrderForProduct(productId, sortOrder);
+            if (existsSortOrder) {
+                throw new ProductImageException(
+                    "Product with ID " + productId + " already has an image with sort order " + sortOrder + ". " +
+                    "Each product image must have a unique sort order."
+                );
+            }
+        }
+    }
+
+    private void validateSortOrderForUpdate(long productId, Integer sortOrder, long currentImageId) {
+        if (sortOrder != null) {
+            boolean existsSortOrder = productImageRepository.existsSortOrderForProductExcludingId(productId, sortOrder, currentImageId);
+            if (existsSortOrder) {
+                throw new ProductImageException(
+                    "Product with ID " + productId + " already has an image with sort order " + sortOrder + ". " +
+                    "Each product image must have a unique sort order."
+                );
             }
         }
     }

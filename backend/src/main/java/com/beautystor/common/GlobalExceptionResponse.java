@@ -1,5 +1,6 @@
 package com.beautystor.common;
 
+import com.beautystor.exception.ProductImageException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -49,6 +50,12 @@ public class GlobalExceptionResponse {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiResponse<?>> handleIllegalArgument(IllegalArgumentException ex) {
+        List<ApiResponse.ErrorItem> errors = List.of(new ApiResponse.ErrorItem(ex.getMessage()));
+        return new ResponseEntity<>(new ApiResponse<>(errors), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProductImageException.class)
+    public ResponseEntity<ApiResponse<?>> handleProductImageException(ProductImageException ex) {
         List<ApiResponse.ErrorItem> errors = List.of(new ApiResponse.ErrorItem(ex.getMessage()));
         return new ResponseEntity<>(new ApiResponse<>(errors), HttpStatus.BAD_REQUEST);
     }
