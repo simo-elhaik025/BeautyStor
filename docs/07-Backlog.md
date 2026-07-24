@@ -1,65 +1,67 @@
 # 07-Backlog
 
-Sprint 0 — Préparation
-────────────────────────
-✔ Création du dépôt GitHub
+Sprint 0 — Initialisation
+✔ GitHub
 ✔ Documentation
-✔ Initialisation du projet Spring Boot
-✔ Configuration du projet
+✔ Spring Boot
+✔ Configuration
 
-Sprint 1 — Catalogue
-────────────────────────
-Done□ Gestion des catégories
-Done□ Gestion des marques
-Done□ Gestion des produits
-□ Gestion des images
-□ Gestion des variantes
-□ Gestion des stocks
+Sprint 1 — Catalogue Administration
+✔ Catégories
+✔ Marques
+✔ Produits
+✔ Variantes
+✔ Images
+✔ Stocks
+✔ Validation
+✔ Exceptions
 
-Sprint 2 — Authentification
-────────────────────────
+Sprint 2 — Utilisateurs
 □ Utilisateurs
 □ Rôles
+
+Sprint 3 — Sécurité
 □ Spring Security
 □ JWT
-□ Connexion
-□ Gestion des permissions
+□ Login
+□ Refresh Token
+□ Permissions
 
-Sprint 3 — Catalogue public
-────────────────────────
-□ Liste des produits
-□ Détails d'un produit
+Sprint 4 — Catalogue Public
+□ Liste
+□ Détails
 □ Recherche
 □ Filtres
 □ Pagination
 □ Tri
 
-Sprint 4 — Panier
-────────────────────────
-□ Ajouter au panier
-□ Modifier les quantités
-□ Supprimer un article
-□ Vider le panier
+Sprint 5 — Panier
+□ Panier
+□ Articles
+□ Quantités
+□ Calcul automatique
 
-Sprint 5 — Commandes
-────────────────────────
-□ Création d'une commande
-□ Adresse de livraison
-□ Calcul du total
-□ Historique des commandes
-□ Gestion des statuts
+Sprint 6 — Commandes
+□ Création
+□ Validation stock
+□ Adresse
+□ Total
+□ Historique
+□ Statuts
 
-Sprint 6 — Administration
-────────────────────────
-□ Tableau de bord
-□ Gestion des commandes
-□ Gestion des utilisateurs
-□ Statistiques simples
+Sprint 7 — Administration
+□ Dashboard
+□ Commandes
+□ Utilisateurs
+□ Statistiques
 
-Sprint 7 — Qualité
-────────────────────────
-□ Validation
-□ Gestion des exceptions
+Sprint 8 — Finalisation
 □ Swagger
 □ Tests
+□ Docker
 □ Optimisation
+□ Documentation
+□ CI/CD
+□ Déploiement
+
+

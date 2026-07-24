@@ -376,13 +376,16 @@ Each product belongs to one category and one brand.
 ```
 ---
 
+
+
+
 # Product Image API
 
 ## Overview
 
 The Product Image API provides endpoints to manage images associated with products.
 
-Each image belongs to one product.
+Each image belongs to a single product.
 
 ---
 
@@ -445,10 +448,9 @@ Each image belongs to one product.
 ```json
 {
   "productId": "long (required)",
-  "imageUrl": "string (required)",
-  "altText": "string (optional)",
-  "displayOrder": "integer (optional)",
-  "isPrimary": "boolean"
+  "url": "string (required)",
+  "sortOrder": "integer (required)",
+  "primary": "boolean"
 }
 ```
 
@@ -457,10 +459,9 @@ Each image belongs to one product.
 ```json
 {
   "productId": "long (required)",
-  "imageUrl": "string (required)",
-  "altText": "string (optional)",
-  "displayOrder": "integer (optional)",
-  "isPrimary": "boolean"
+  "url": "string (required)",
+  "sortOrder": "integer (required)",
+  "primary": "boolean"
 }
 ```
 
@@ -470,13 +471,220 @@ Each image belongs to one product.
 {
   "id": 1,
   "productId": 1,
-  "imageUrl": "https://example.com/images/product-1.jpg",
-  "altText": "Front view",
-  "displayOrder": 1,
-  "isPrimary": true
+  "url": "https://example.com/images/product-1.jpg",
+  "sortOrder": 1,
+  "primary": true
 }
 ```
 
+
+
+
+
+# Product Variant API
+
+## Overview
+
+The Product Variant API provides endpoints to manage product variants.
+
+Each variant belongs to a single product and represents a purchasable version of that product.
+
+---
+
+## Endpoints
+
+### Create Product Variant
+
+- **HTTP Method:** `POST`
+- **URL:** `/api/product-variants`
+- **Request DTO:** `CreateProductVariantRequest`
+- **Response DTO:** `ApiResponse<ProductVariantResponse>`
+- **Expected HTTP Status:** `201 Created`
+
+---
+
+### Get All Product Variants
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/product-variants`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<List<ProductVariantResponse>>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Get Product Variant by ID
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/product-variants/{id}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<ProductVariantResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Update Product Variant
+
+- **HTTP Method:** `PUT`
+- **URL:** `/api/product-variants/{id}`
+- **Request DTO:** `UpdateProductVariantRequest`
+- **Response DTO:** `ApiResponse<ProductVariantResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Delete Product Variant
+
+- **HTTP Method:** `DELETE`
+- **URL:** `/api/product-variants/{id}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<Void>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+## DTOs
+
+### CreateProductVariantRequest
+
+```json
+{
+  "productId": "long (required)",
+  "sku": "string (required)",
+  "displayName": "string (optional)",
+  "price": "decimal (required)",
+  "stockQuantity": "integer (required)"
+}
+```
+
+### UpdateProductVariantRequest
+
+```json
+{
+  "productId": "long (required)",
+  "sku": "string (required)",
+  "displayName": "string (optional)",
+  "price": "decimal (required)",
+  "stockQuantity": "integer (required)"
+}
+```
+
+### ProductVariantResponse
+
+```json
+{
+  "id": 1,
+  "productId": 1,
+  "sku": "SKU-001",
+  "displayName": "100 ml",
+  "price": 149.99,
+  "stockQuantity": 50
+}
+```
+
+
+
+# User API
+
+## Overview
+
+The User API provides endpoints to manage application users.
+
+Each user can own multiple addresses, carts and orders.
+
+---
+
+## Endpoints
+
+### Create User
+
+- **HTTP Method:** `POST`
+- **URL:** `/api/users`
+- **Request DTO:** `CreateUserRequest`
+- **Response DTO:** `ApiResponse<UserResponse>`
+- **Expected HTTP Status:** `201 Created`
+
+---
+
+### Get All Users
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/users`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<List<UserResponse>>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Get User by ID
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/users/{id}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<UserResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Update User
+
+- **HTTP Method:** `PUT`
+- **URL:** `/api/users/{id}`
+- **Request DTO:** `UpdateUserRequest`
+- **Response DTO:** `ApiResponse<UserResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Delete User
+
+- **HTTP Method:** `DELETE`
+- **URL:** `/api/users/{id}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<Void>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+## DTOs
+
+### CreateUserRequest
+
+```json
+{
+  "email": "john@example.com",
+  "password": "string (required)",
+  "role": "USER",
+  "firstName": "John",
+  "lastName": "Doe",
+  "phone": "+212600000000"
+}
+```
+### UpdateUserRequest
+
+
+```json
+{
+  "email": "john@example.com",
+  "role": "USER",
+  "firstName": "John",
+  "lastName": "Doe",
+  "phone": "+212600000000",
+  "isActive": true
+}
+```
+### UserResponse
+```
+{
+  "id": 1,
+  "email": "john@example.com",
+  "role": "USER",
+  "firstName": "John",
+  "lastName": "Doe",
+  "phone": "+212600000000",
+  "isActive": true
+}
+```
 
 ## Statut
 
@@ -485,6 +693,6 @@ Each image belongs to one product.
 - ✅ Category API
 - ✅ Brand API
 - ✅ Product API
-- ⏳ Product Variant API
-- ⏳ Product Image API
-- ⏳ Stock API
+- ✅ Product Variant API
+- ✅ Product Image API
+

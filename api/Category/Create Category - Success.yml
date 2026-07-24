@@ -10,8 +10,8 @@ http:
     type: json
     data: |-
       {
-        "name": "Meckup",
-        "slug": "meckup",
+        "name": "Meckup-2",
+        "slug": "meckup-2",
         "parentId": null,
         "active": true
       }
