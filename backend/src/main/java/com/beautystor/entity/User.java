@@ -1,5 +1,6 @@
 package com.beautystor.entity;
 
+import com.beautystor.enm.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -33,8 +34,8 @@ public class User {
     private String passwordHash;
     
     @Column(nullable = false)
-    @NotBlank(message = "Role is required")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     
     @Column(name = "firstName")
     private String firstName;

@@ -1,0 +1,26 @@
+info:
+  name: Update User
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: localhost:8080/api/users/4
+  body:
+    type: json
+    data: |-
+      {
+        "email": "john.updated@example.com",
+        "role": "ADMIN",
+        "firstName": "John",
+        "lastName": "Smith",
+        "phone": "+212611111111",
+        "isActive": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
