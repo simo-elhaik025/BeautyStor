@@ -1,0 +1,26 @@
+info:
+  name: Register - Success
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: localhost:8080/api/auth/register
+  body:
+    type: json
+    data: |-
+      {
+        "email": "john1@example.com",
+        "password": "",
+        "phone":"0777667627",
+        "firstName": "John2",
+        "lastName": "Doe",
+        "role": "ADMIN"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

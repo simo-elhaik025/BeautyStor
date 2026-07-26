@@ -17,8 +17,8 @@ Sprint 1 — Catalogue Administration
 ✔ Exceptions
 
 Sprint 2 — Utilisateurs
-□ Utilisateurs
-□ Rôles
+✔ Utilisateurs
+✔ Rôles
 
 Sprint 3 — Sécurité
 □ Spring Security

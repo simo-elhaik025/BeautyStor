@@ -686,13 +686,79 @@ Each user can own multiple addresses, carts and orders.
 }
 ```
 
-## Statut
 
-### Sprint 1
 
-- ✅ Category API
-- ✅ Brand API
-- ✅ Product API
-- ✅ Product Variant API
-- ✅ Product Image API
 
+
+# Authentication API
+
+## Overview
+
+The Authentication API provides endpoints for user authentication using JWT.
+
+It allows users to log in, obtain an Access Token and Refresh Token, and refresh an expired Access Token without re-entering their credentials.
+
+---
+
+## Endpoints
+
+### Login
+
+- **HTTP Method:** `POST`
+- **URL:** `/api/auth/login`
+- **Request DTO:** `LoginRequest`
+- **Response DTO:** `ApiResponse<AuthenticationResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Refresh Access Token
+
+- **HTTP Method:** `POST`
+- **URL:** `/api/auth/refresh`
+- **Request DTO:** `RefreshTokenRequest`
+- **Response DTO:** `ApiResponse<AuthenticationResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+## DTOs
+
+### LoginRequest
+
+```json
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+### RefreshTokenRequest
+
+```json
+{
+  "refreshToken": "your-refresh-token"
+}
+```
+
+### AuthenticationResponse
+
+```json
+{
+  "accessToken": "jwt-access-token",
+  "refreshToken": "jwt-refresh-token",
+  "tokenType": "Bearer",
+  "expiresIn": 3600
+}
+```
+
+---
+
+## Security Responses
+
+| HTTP Status | Description |
+|-------------|-------------|
+| 200 OK | Authentication successful |
+| 400 Bad Request | Invalid request |
+| 401 Unauthorized | Invalid credentials or invalid/expired JWT |
+| 403 Forbidden | Access denied |
