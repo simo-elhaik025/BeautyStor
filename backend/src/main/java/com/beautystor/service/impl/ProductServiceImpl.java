@@ -1,15 +1,19 @@
 package com.beautystor.service.impl;
 
 import com.beautystor.dto.product.CreateProductRequest;
+import com.beautystor.dto.product.ProductDetailsResponse;
 import com.beautystor.dto.product.UpdateProductRequest;
 import com.beautystor.dto.product.ProductResponse;
+import com.beautystor.dto.product.ProductSummaryResponse;
 import com.beautystor.entity.Product;
+import com.beautystor.mapper.ProductPublicMapper;
 import com.beautystor.repository.BrandRepository;
 import com.beautystor.repository.CategoryRepository;
 import com.beautystor.repository.ProductRepository;
 import com.beautystor.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductPublicMapper productPublicMapper;
 
     @Override
     public ProductResponse create(CreateProductRequest request) {
@@ -41,7 +46,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> getAll() {
+    @Transactional(readOnly = true)
+    public List<ProductSummaryResponse> getAll() {
+        return productRepository.findAllByIsAvailableTrue()
+                .stream()
+                .map(productPublicMapper::toSummaryResponse)
+                .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ProductDetailsResponse getBySlug(String slug) {
+        Product product = productRepository.findBySlugAndIsAvailableTrue(slug)
+                .orElseThrow(() -> new IllegalArgumentException("Product with slug '" + slug + "' not found"));
+
+        return productPublicMapper.toDetailsResponse(product);
+    }
+
+    @Override
+    public List<ProductResponse> getAllForAdmin() {
         return productRepository.findAll()
                 .stream()
                 .map(this::mapToProductResponse)
@@ -49,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse getById(long id) {
+    public ProductResponse getByIdForAdmin(long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product with ID " + id + " not found"));
 

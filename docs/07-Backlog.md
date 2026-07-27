@@ -21,11 +21,11 @@ Sprint 2 — Utilisateurs
 ✔ Rôles
 
 Sprint 3 — Sécurité
-□ Spring Security
-□ JWT
-□ Login
-□ Refresh Token
-□ Permissions
+✔ Spring Security
+✔ JWT
+✔ Login
+✔ Refresh Token
+✔ Permissions
 
 Sprint 4 — Catalogue Public
 □ Liste

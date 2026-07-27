@@ -2,6 +2,8 @@ package com.beautystor.controller;
 
 import com.beautystor.common.ApiResponse;
 import com.beautystor.dto.product.CreateProductRequest;
+import com.beautystor.dto.product.ProductDetailsResponse;
+import com.beautystor.dto.product.ProductSummaryResponse;
 import com.beautystor.dto.product.UpdateProductRequest;
 import com.beautystor.dto.product.ProductResponse;
 import com.beautystor.service.ProductService;
@@ -28,16 +30,16 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<ProductResponse>>> getAll() {
-        List<ProductResponse> products = productService.getAll();
-        ApiResponse<List<ProductResponse>> response = new ApiResponse<>(products);
+    public ResponseEntity<ApiResponse<List<ProductSummaryResponse>>> getAll() {
+        List<ProductSummaryResponse> products = productService.getAll();
+        ApiResponse<List<ProductSummaryResponse>> response = new ApiResponse<>(products);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<ProductResponse>> getById(@PathVariable long id) {
-        ProductResponse productResponse = productService.getById(id);
-        ApiResponse<ProductResponse> response = new ApiResponse<>(productResponse);
+    @GetMapping("/{slug}")
+    public ResponseEntity<ApiResponse<ProductDetailsResponse>> getBySlug(@PathVariable String slug) {
+        ProductDetailsResponse productResponse = productService.getBySlug(slug);
+        ApiResponse<ProductDetailsResponse> response = new ApiResponse<>(productResponse);
         return ResponseEntity.ok(response);
     }
 

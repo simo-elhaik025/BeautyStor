@@ -762,3 +762,7 @@ It allows users to log in, obtain an Access Token and Refresh Token, and refresh
 | 400 Bad Request | Invalid request |
 | 401 Unauthorized | Invalid credentials or invalid/expired JWT |
 | 403 Forbidden | Access denied |
+
+
+
+
