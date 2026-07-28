@@ -12,7 +12,6 @@ http:
       {
         "email": "elhaik02523@gmail.com",
         "password": "87651234",
-        "role": "User",
         "firstName": "Mohamed",
         "lastName": "Elhaik2",
         "phone": "+212600000000"

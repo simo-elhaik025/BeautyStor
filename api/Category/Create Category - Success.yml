@@ -10,12 +10,14 @@ http:
     type: json
     data: |-
       {
-        "name": "Meckup-2",
-        "slug": "meckup-2",
+        "name": "Fragrance",
+        "slug": "fragrance",
         "parentId": null,
         "active": true
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTI2MjQzMiwiZXhwIjoxNzg1MjYzMzMyfQ.BL4djTWkw92q5CuBCBeQ_wUbP_vof2_zPpYtXk_njS4
 
 settings:
   encodeUrl: true

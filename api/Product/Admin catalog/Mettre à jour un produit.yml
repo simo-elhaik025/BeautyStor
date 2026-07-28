@@ -1,0 +1,29 @@
+info:
+  name: Mettre à jour un produit
+  type: http
+  seq: 2
+
+http:
+  method: PUT
+  url: localhost:8080/api/admin/products/1
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Hydrating Face Cream",
+        "slug": "hydrating-face-cream",
+        "description": "Daily moisturizing face cream.",
+        "brandId": 1,
+        "categoryId": 1,
+        "basePrice": 19.99,
+        "available": true
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTI2MzU1MCwiZXhwIjoxNzg1MjY0NDUwfQ.wm6okGLmLoakLgLnfO0aFkbYgOBMsL1-3Ki_yQ5tzKA
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -272,18 +272,67 @@ Each brand can be associated with multiple products.
 
 ## Overview
 
-The Product API provides endpoints to manage products in the BeautyStor catalog.
+Product access is split into two contracts:
+
+- public catalogue endpoints expose only customer-visible data
+- administration endpoints expose the full product management view
 
 Each product belongs to one category and one brand.
 
 ---
 
-## Endpoints
+## Public Catalogue Endpoints
+
+### Get Product List
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/products`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<Page<ProductSummaryResponse>>`
+- **Expected HTTP Status:** `200 OK`
+
+This endpoint returns only available products, mapped with summary data for the client catalogue.
+
+Optional query parameters:
+
+- `search`: text search on the product name
+- `category`: filter by category ID
+- `brand`: filter by brand ID
+- `available`: filter by availability
+- `page`: zero-based page index
+- `size`: page size
+- `sort`: sort field and direction using Spring Pageable syntax
+
+All filters are optional and can be combined.
+
+Example:
+
+`GET /api/products?search=cream&category=2&brand=1&available=true`
+
+Pagination and sorting can be combined with the filters:
+
+`GET /api/products?page=0&size=12&sort=basePrice,desc`
+
+---
+
+### Get Product Details
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/products/{slug}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<ProductDetailsResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+This endpoint returns one available product by slug, mapped with public detail data only.
+
+---
+
+## Administration Endpoints
 
 ### Create Product
 
 - **HTTP Method:** `POST`
-- **URL:** `/api/products`
+- **URL:** `/api/admin/products`
 - **Request DTO:** `CreateProductRequest`
 - **Response DTO:** `ApiResponse<ProductResponse>`
 - **Expected HTTP Status:** `201 Created`
@@ -293,7 +342,7 @@ Each product belongs to one category and one brand.
 ### Get All Products
 
 - **HTTP Method:** `GET`
-- **URL:** `/api/products`
+- **URL:** `/api/admin/products`
 - **Request DTO:** N/A
 - **Response DTO:** `ApiResponse<List<ProductResponse>>`
 - **Expected HTTP Status:** `200 OK`
@@ -303,7 +352,7 @@ Each product belongs to one category and one brand.
 ### Get Product by ID
 
 - **HTTP Method:** `GET`
-- **URL:** `/api/products/{id}`
+- **URL:** `/api/admin/products/{id}`
 - **Request DTO:** N/A
 - **Response DTO:** `ApiResponse<ProductResponse>`
 - **Expected HTTP Status:** `200 OK`
@@ -313,7 +362,7 @@ Each product belongs to one category and one brand.
 ### Update Product
 
 - **HTTP Method:** `PUT`
-- **URL:** `/api/products/{id}`
+- **URL:** `/api/admin/products/{id}`
 - **Request DTO:** `UpdateProductRequest`
 - **Response DTO:** `ApiResponse<ProductResponse>`
 - **Expected HTTP Status:** `200 OK`
@@ -323,7 +372,7 @@ Each product belongs to one category and one brand.
 ### Delete Product
 
 - **HTTP Method:** `DELETE`
-- **URL:** `/api/products/{id}`
+- **URL:** `/api/admin/products/{id}`
 - **Request DTO:** N/A
 - **Response DTO:** `ApiResponse<Void>`
 - **Expected HTTP Status:** `200 OK`
@@ -342,7 +391,7 @@ Each product belongs to one category and one brand.
   "brandId": "long (required)",
   "categoryId": "long (required)",
   "basePrice": "decimal (required)",
-  "isAvailable": "boolean"
+  "available": "boolean"
 }
 ```
 
@@ -356,7 +405,7 @@ Each product belongs to one category and one brand.
   "brandId": "long (required)",
   "categoryId": "long (required)",
   "basePrice": "decimal (required)",
-  "isAvailable": "boolean"
+  "available": "boolean"
 }
 ```
 
@@ -371,7 +420,84 @@ Each product belongs to one category and one brand.
   "brandId": 1,
   "categoryId": 2,
   "basePrice": 149.99,
-  "isAvailable": true
+  "available": true
+}
+```
+
+### ProductSummaryResponse
+
+```json
+{
+  "id": 1,
+  "name": "Hydrating Face Cream",
+  "slug": "hydrating-face-cream",
+  "brand": {
+    "id": 1,
+    "name": "BeautyStor",
+    "slug": "beautystor",
+    "logoUrl": "https://cdn.example.com/brands/beautystor.png"
+  },
+  "category": {
+    "id": 2,
+    "name": "Skincare",
+    "slug": "skincare",
+    "parentId": null,
+    "active": true
+  },
+  "basePrice": 149.99,
+  "primaryImage": {
+    "id": 10,
+    "productId": 1,
+    "url": "https://cdn.example.com/products/hydrating-face-cream.jpg",
+    "sortOrder": 1,
+    "primary": true
+  },
+  "available": true
+}
+```
+
+### ProductDetailsResponse
+
+```json
+{
+  "id": 1,
+  "name": "Hydrating Face Cream",
+  "slug": "hydrating-face-cream",
+  "description": "Daily moisturizing cream",
+  "brand": {
+    "id": 1,
+    "name": "BeautyStor",
+    "slug": "beautystor",
+    "logoUrl": "https://cdn.example.com/brands/beautystor.png"
+  },
+  "category": {
+    "id": 2,
+    "name": "Skincare",
+    "slug": "skincare",
+    "parentId": null,
+    "active": true
+  },
+  "basePrice": 149.99,
+  "images": [
+    {
+      "id": 10,
+      "productId": 1,
+      "url": "https://cdn.example.com/products/hydrating-face-cream.jpg",
+      "sortOrder": 1,
+      "primary": true
+    }
+  ],
+  "variants": [
+    {
+      "id": 20,
+      "productId": 1,
+      "sku": "HFC-50ML",
+      "displayName": "50 ml",
+      "price": 149.99,
+      "stockQuantity": 12
+    }
+  ],
+  "available": true
 }
 ```
 ---
@@ -762,7 +888,3 @@ It allows users to log in, obtain an Access Token and Refresh Token, and refresh
 | 400 Bad Request | Invalid request |
 | 401 Unauthorized | Invalid credentials or invalid/expired JWT |
 | 403 Forbidden | Access denied |
-
-
-
-

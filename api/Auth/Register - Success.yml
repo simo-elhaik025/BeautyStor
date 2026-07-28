@@ -11,11 +11,10 @@ http:
     data: |-
       {
         "email": "john1@example.com",
-        "password": "",
+        "password": "87651234",
         "phone":"0777667627",
         "firstName": "John2",
-        "lastName": "Doe",
-        "role": "ADMIN"
+        "lastName": "Doe"
       }
   auth: inherit
 

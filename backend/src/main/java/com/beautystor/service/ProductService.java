@@ -6,11 +6,14 @@ import com.beautystor.dto.product.UpdateProductRequest;
 import com.beautystor.dto.product.ProductResponse;
 import com.beautystor.dto.product.ProductSummaryResponse;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 public interface ProductService {
     ProductResponse create(CreateProductRequest request);
-    List<ProductSummaryResponse> getAll();
+    Page<ProductSummaryResponse> getAll(String search, Long categoryId, Long brandId, Boolean available, Pageable pageable);
     ProductDetailsResponse getBySlug(String slug);
     List<ProductResponse> getAllForAdmin();
     ProductResponse getByIdForAdmin(long id);

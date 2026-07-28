@@ -1,0 +1,17 @@
+info:
+  name: Lister tous les produits
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: localhost:8080/api/admin/products
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTI2NDA4NCwiZXhwIjoxNzg1MjY0OTg0fQ.NdaPbKmu-SUoOKI8BGZnTtgyagx7MTXDPMvEcT2G6iA
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

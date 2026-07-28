@@ -1,11 +1,11 @@
 info:
   name: Supprimer un produit
   type: http
-  seq: 5
+  seq: 2
 
 http:
   method: DELETE
-  url: localhost:8080/api/products/2
+  url: localhost:8080/api/Admin/products/2
   auth: inherit
 
 settings:

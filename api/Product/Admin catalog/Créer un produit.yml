@@ -1,0 +1,29 @@
+info:
+  name: Créer un produit
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: localhost:8080/api/admin/products
+  body:
+    type: json
+    data: |-
+      {
+        "name": "BB Cream",
+        "slug": "bb-cream",
+        "description": "Light coverage BB cream.",
+        "brandId": 3,
+        "categoryId": 2,
+        "basePrice": 16.90,
+        "available": true
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTI2MzU1MCwiZXhwIjoxNzg1MjY0NDUwfQ.wm6okGLmLoakLgLnfO0aFkbYgOBMsL1-3Ki_yQ5tzKA
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

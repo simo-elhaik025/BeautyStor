@@ -5,8 +5,10 @@ info:
 
 http:
   method: DELETE
-  url: localhost:8080/api/categories/4
-  auth: inherit
+  url: localhost:8080/api/categories/6
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTI1OTE1NSwiZXhwIjoxNzg1MjYwMDU1fQ.0_mEfchnbRUdDI92yD8WwQS3cyMtFMdQj_mHLr_VPVI
 
 settings:
   encodeUrl: true

@@ -1,38 +1,31 @@
 package com.beautystor.controller;
 
 import com.beautystor.common.ApiResponse;
-import com.beautystor.dto.product.CreateProductRequest;
 import com.beautystor.dto.product.ProductDetailsResponse;
 import com.beautystor.dto.product.ProductSummaryResponse;
-import com.beautystor.dto.product.UpdateProductRequest;
-import com.beautystor.dto.product.ProductResponse;
 import com.beautystor.service.ProductService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
-public class ProductController {
+    public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping
-    public ResponseEntity<ApiResponse<ProductResponse>> create(@Valid @RequestBody CreateProductRequest request) {
-        ProductResponse productResponse = productService.create(request);
-        ApiResponse<ProductResponse> response = new ApiResponse<>(productResponse);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-
     @GetMapping
-    public ResponseEntity<ApiResponse<List<ProductSummaryResponse>>> getAll() {
-        List<ProductSummaryResponse> products = productService.getAll();
-        ApiResponse<List<ProductSummaryResponse>> response = new ApiResponse<>(products);
+    public ResponseEntity<ApiResponse<Page<ProductSummaryResponse>>> getAll(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) Long category,
+            @RequestParam(required = false) Long brand,
+            @RequestParam(required = false) Boolean available,
+            Pageable pageable) {
+        Page<ProductSummaryResponse> products = productService.getAll(search, category, brand, available, pageable);
+        ApiResponse<Page<ProductSummaryResponse>> response = new ApiResponse<>(products);
         return ResponseEntity.ok(response);
     }
 
@@ -41,18 +34,5 @@ public class ProductController {
         ProductDetailsResponse productResponse = productService.getBySlug(slug);
         ApiResponse<ProductDetailsResponse> response = new ApiResponse<>(productResponse);
         return ResponseEntity.ok(response);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<ProductResponse>> update(@PathVariable long id, @Valid @RequestBody UpdateProductRequest request) {
-        ProductResponse productResponse = productService.update(id, request);
-        ApiResponse<ProductResponse> response = new ApiResponse<>(productResponse);
-        return ResponseEntity.ok(response);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
-        productService.delete(id);
-        return ResponseEntity.ok(new ApiResponse<>((Void) null));
     }
 }

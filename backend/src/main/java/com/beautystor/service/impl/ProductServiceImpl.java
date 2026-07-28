@@ -10,8 +10,12 @@ import com.beautystor.mapper.ProductPublicMapper;
 import com.beautystor.repository.BrandRepository;
 import com.beautystor.repository.CategoryRepository;
 import com.beautystor.repository.ProductRepository;
+import com.beautystor.specification.ProductSpecifications;
 import com.beautystor.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
         product.setBrandId(request.getBrandId());
         product.setCategoryId(request.getCategoryId());
         product.setBasePrice(request.getBasePrice());
-        product.setAvailable(request.getAvailable() != null ? request.getAvailable() : false);
+        product.setAvailable(request.getAvailable() != null && request.getAvailable());
 
         Product savedProduct = productRepository.save(product);
 
@@ -47,11 +51,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductSummaryResponse> getAll() {
-        return productRepository.findAllByIsAvailableTrue()
-                .stream()
-                .map(productPublicMapper::toSummaryResponse)
-                .toList();
+    public Page<ProductSummaryResponse> getAll(String search, Long categoryId, Long brandId, Boolean available, Pageable pageable) {
+        boolean effectiveAvailable = available == null ? true : available;
+
+        Specification<Product> specification = ProductSpecifications.allProducts()
+                .and(ProductSpecifications.nameContains(search))
+                .and(ProductSpecifications.categoryIdEquals(categoryId))
+                .and(ProductSpecifications.brandIdEquals(brandId))
+                .and(ProductSpecifications.availableEquals(effectiveAvailable));
+
+        return productRepository.findAll(specification, pageable)
+                .map(productPublicMapper::toSummaryResponse);
     }
 
     @Override

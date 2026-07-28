@@ -91,25 +91,21 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,
                                 "/api/brands/**",
                                 "/api/categories/**",
-                                "/api/products/**",
                                 "/api/product-images/**",
                                 "/api/product-variants/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT,
                                 "/api/brands/**",
                                 "/api/categories/**",
-                                "/api/products/**",
                                 "/api/product-images/**",
                                 "/api/product-variants/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PATCH,
                                 "/api/brands/**",
                                 "/api/categories/**",
-                                "/api/products/**",
                                 "/api/product-images/**",
                                 "/api/product-variants/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,
                                 "/api/brands/**",
                                 "/api/categories/**",
-                                "/api/products/**",
                                 "/api/product-images/**",
                                 "/api/product-variants/**").hasRole("ADMIN")
                         .anyRequest().hasAnyRole("USER", "ADMIN"));

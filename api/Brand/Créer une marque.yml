@@ -10,11 +10,13 @@ http:
     type: json
     data: |-
       {
-        "name": "Boss-2",
-        "slug": "boss-2",
-        "logoUrl": "https://example.com/logos/Boss.png"
+        "name": "Nivea",
+        "slug": "nivea",
+        "logoUrl": "https://example.com/logos/nivea.png"
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTI2MjQzMiwiZXhwIjoxNzg1MjYzMzMyfQ.BL4djTWkw92q5CuBCBeQ_wUbP_vof2_zPpYtXk_njS4
 
 settings:
   encodeUrl: true
