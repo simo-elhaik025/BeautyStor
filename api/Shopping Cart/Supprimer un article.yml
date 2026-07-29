@@ -1,0 +1,15 @@
+info:
+  name: Supprimer un article
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: localhost:8080/api/cart/items/{itemId}
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

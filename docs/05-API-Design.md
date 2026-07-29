@@ -710,6 +710,131 @@ Each variant belongs to a single product and represents a purchasable version of
 
 
 
+# Cart API
+
+## Overview
+
+The Cart API allows an authenticated user to manage their own shopping cart.
+
+The cart is created automatically when needed. The client never creates a cart manually.
+
+Each line item is recalculated on the server.
+
+Rules:
+
+- only authenticated users can access these endpoints
+- a user can only access their own cart
+- the product variant must exist
+- quantity must be strictly positive when adding
+- quantity must be greater than or equal to 1 when updating
+- quantity must not exceed available stock
+- adding the same variant again increases the existing line quantity instead of creating a duplicate
+- subtotal and total price are always computed by the server
+
+---
+
+## Endpoints
+
+### Get Cart
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/cart`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<CartResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+Returns the authenticated user's current cart.
+
+---
+
+### Add Cart Item
+
+- **HTTP Method:** `POST`
+- **URL:** `/api/cart/items`
+- **Request DTO:** `AddCartItemRequest`
+- **Response DTO:** `ApiResponse<CartResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+Creates the cart automatically if it does not exist yet.
+
+---
+
+### Update Cart Item Quantity
+
+- **HTTP Method:** `PUT`
+- **URL:** `/api/cart/items/{itemId}`
+- **Request DTO:** `UpdateCartItemRequest`
+- **Response DTO:** `ApiResponse<CartResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+### Delete Cart Item
+
+- **HTTP Method:** `DELETE`
+- **URL:** `/api/cart/items/{itemId}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<Void>`
+- **Expected HTTP Status:** `200 OK`
+
+---
+
+## DTOs
+
+### AddCartItemRequest
+
+```json
+{
+  "productVariantId": "long (required)",
+  "quantity": "integer (required, > 0)"
+}
+```
+
+### UpdateCartItemRequest
+
+```json
+{
+  "quantity": "integer (required, >= 1)"
+}
+```
+
+### CartItemResponse
+
+```json
+{
+  "itemId": 1,
+  "productVariantId": 20,
+  "productName": "Hydrating Face Cream",
+  "sku": "HFC-50ML",
+  "quantity": 2,
+  "unitPrice": 149.99,
+  "subtotal": 299.98
+}
+```
+
+### CartResponse
+
+```json
+{
+  "cartId": 5,
+  "items": [
+    {
+      "itemId": 1,
+      "productVariantId": 20,
+      "productName": "Hydrating Face Cream",
+      "sku": "HFC-50ML",
+      "quantity": 2,
+      "unitPrice": 149.99,
+      "subtotal": 299.98
+    }
+  ],
+  "totalItems": 2,
+  "totalPrice": 299.98
+}
+```
+
+
+
 # User API
 
 ## Overview

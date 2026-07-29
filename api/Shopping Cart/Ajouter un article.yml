@@ -1,0 +1,24 @@
+info:
+  name: Ajouter un article
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: localhost:8080/api/cart/items
+  body:
+    type: json
+    data: |-
+      {
+          "productVariantId": 2,
+          "quantity": 2
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTMzMjQ0MiwiZXhwIjoxNzg1MzMzMzQyfQ.xnE7mtCLukP3J1bmkcfKZDfythO8eoHtT9Fyhmn8caU
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

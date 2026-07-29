@@ -28,18 +28,18 @@ Sprint 3 — Sécurité
 ✔ Permissions
 
 Sprint 4 — Catalogue Public
-□ Liste
-□ Détails
-□ Recherche
-□ Filtres
-□ Pagination
-□ Tri
+✔ Liste
+✔ Détails
+✔ Recherche
+✔ Filtres
+✔ Pagination
+✔ Tri
 
 Sprint 5 — Panier
-□ Panier
-□ Articles
-□ Quantités
-□ Calcul automatique
+✔ Panier
+✔ Articles
+✔ Quantités
+✔ Calcul automatique
 
 Sprint 6 — Commandes
 □ Création
