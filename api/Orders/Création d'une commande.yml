@@ -1,0 +1,23 @@
+info:
+  name: Création d'une commande
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: localhost:8080/api/orders
+  body:
+    type: json
+    data: |-
+      {
+          "addressId": 2
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTMzODg4NSwiZXhwIjoxNzg1MzM5Nzg1fQ.zdPH-pf9TllTQAaEfyvGG0O8G2VzRMKNEGTb2oHlojQ
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

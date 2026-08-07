@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {
 
@@ -19,5 +21,8 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, Long
     @Query("SELECT CASE WHEN COUNT(pi) > 0 THEN true ELSE false END " +
            "FROM ProductImage pi WHERE pi.productId = ?1 AND pi.sortOrder = ?2 AND pi.id != ?3")
     boolean existsSortOrderForProductExcludingId(long productId, int sortOrder, long imageId);
+
+    @Query("SELECT pi FROM ProductImage pi WHERE pi.productId = ?1 AND pi.isPrimary = true")
+    Optional<ProductImage> findPrimaryByProductId(long productId);
 }
 

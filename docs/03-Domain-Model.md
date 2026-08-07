@@ -23,7 +23,6 @@ Le Domain Model représente les principales entités métier ainsi que leurs rel
 ### Utilisateurs
 
 - User
-- Address
 
 ### Vente
 
@@ -47,6 +46,7 @@ Le Domain Model représente les principales entités métier ainsi que leurs rel
 - Les variantes permettent de gérer différentes tailles, couleurs ou volumes.
 - Les rôles des utilisateurs sont gérés via un Enum (`ADMIN`, `CUSTOMER`).
 - Les informations essentielles d'une commande sont sauvegardées sous forme de snapshots afin de préserver l'historique même si les données changent par la suite.
+- L'adresse de livraison est stockée directement dans `Order` comme snapshot et ne dépend pas d'un module d'adresse utilisateur.
 
 ---
 

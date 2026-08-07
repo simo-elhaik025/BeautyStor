@@ -40,12 +40,20 @@ public class OrderItem {
     private String productVariantSku;
     
     @Column(nullable = false)
-    @NotNull(message = "Quantity is required")
     private int quantity;
     
     @Column(nullable = false, precision = 10, scale = 2)
     @NotNull(message = "Price at purchase is required")
     private BigDecimal priceAtPurchase;
+    
+    @Column(nullable = true)
+    private String variantDisplayNameSnapshot;
+    
+    @Column(nullable = true)
+    private String productDescriptionSnapshot;
+    
+    @Column(nullable = true)
+    private String productImageUrlSnapshot;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", insertable = false, updatable = false)

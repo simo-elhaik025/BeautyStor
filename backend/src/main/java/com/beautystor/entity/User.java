@@ -48,10 +48,7 @@ public class User {
     
     @Column(nullable = false)
     private boolean isActive;
-    
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Address> addresses;
-    
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Cart> carts;
     

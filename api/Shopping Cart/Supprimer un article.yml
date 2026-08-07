@@ -4,9 +4,11 @@ info:
   seq: 4
 
 http:
-  method: GET
-  url: localhost:8080/api/cart/items/{itemId}
-  auth: inherit
+  method: DELETE
+  url: localhost:8080/api/cart/items/4
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTMzNDAwMSwiZXhwIjoxNzg1MzM0OTAxfQ.LWpNmMLeH-udn6Nss3T18M3SciJnV4li5so-IX0Qs-w
 
 settings:
   encodeUrl: true

@@ -5,8 +5,16 @@ info:
 
 http:
   method: PUT
-  url: /api/cart/items/1
-  auth: inherit
+  url: localhost:8080/api/cart/items/1
+  body:
+    type: json
+    data: |-
+      {
+          "quantity": 4
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTMzMjQ0MiwiZXhwIjoxNzg1MzMzMzQyfQ.xnE7mtCLukP3J1bmkcfKZDfythO8eoHtT9Fyhmn8caU
 
 settings:
   encodeUrl: true

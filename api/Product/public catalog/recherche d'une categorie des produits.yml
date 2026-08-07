@@ -1,5 +1,5 @@
 info:
-  name: Lister tous les produits (1)
+  name: recherche d'une categorie des produits
   type: http
   seq: 2
 

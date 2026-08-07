@@ -10,13 +10,15 @@ http:
     type: json
     data: |-
       {
-        "productId": 1,
-        "sku": "CRM-200",
-        "displayName": "200 ml",
+        "productId": 2,
+        "sku": "Cidk",
+        "displayName": "300 ml",
         "price": 249.99,
         "stockQuantity": 20
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTMzMjQ0MiwiZXhwIjoxNzg1MzMzMzQyfQ.xnE7mtCLukP3J1bmkcfKZDfythO8eoHtT9Fyhmn8caU
 
 settings:
   encodeUrl: true

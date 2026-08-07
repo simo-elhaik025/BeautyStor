@@ -12,9 +12,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.beautystor.enm.OrderStatus;
+
 
 @Entity
-@Table(name = "Order")
+@Table(name = "orders")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -33,9 +35,14 @@ public class Order {
     @NotNull(message = "User ID is required")
     private long userId;
     
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @NotBlank(message = "Status is required")
-    private String status;
+    @NotNull(message = "Status is required")
+    private OrderStatus status;
+
+    @Column(name = "shippingAddressSnapshot", columnDefinition = "JSON", nullable = false)
+    @NotBlank(message = "Shipping address snapshot is required")
+    private String shippingAddressSnapshot;
     
     @Column(name = "paymentMethod")
     private String paymentMethod;
@@ -54,7 +61,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
-    
+
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<OrderItem> items;
 }

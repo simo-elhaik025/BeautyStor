@@ -41,12 +41,16 @@ Sprint 5 — Panier
 ✔ Quantités
 ✔ Calcul automatique
 
+Sprint 5.5 — Adresses
+✖ Non retenu pour la V1
+✖ L'adresse de livraison est saisie dans la commande comme snapshot
+
 Sprint 6 — Commandes
-□ Création
-□ Validation stock
-□ Adresse
-□ Total
-□ Historique
+✔ Création
+✔ Validation stock
+✔ Adresse de livraison snapshot
+✔ Total
+✔ Historique
 □ Statuts
 
 Sprint 7 — Administration
@@ -57,11 +61,9 @@ Sprint 7 — Administration
 
 Sprint 8 — Finalisation
 □ Swagger
-□ Tests
+✔ Tests
 □ Docker
 □ Optimisation
 □ Documentation
 □ CI/CD
 □ Déploiement
-
-

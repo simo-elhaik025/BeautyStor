@@ -835,6 +835,286 @@ Creates the cart automatically if it does not exist yet.
 
 
 
+# Address API
+
+## Overview
+
+The Address API allows an authenticated user to manage their delivery addresses before placing an order.
+
+Rules:
+
+- only authenticated users can access these endpoints
+- a user can only access their own addresses
+- the `userId` is never accepted from the client
+- the `userId` is always derived from the JWT
+- only one address can be marked as default at a time
+- when a new default address is created or updated, all other addresses of the same user are automatically unset as default
+
+---
+
+## Endpoints
+
+### Get All Addresses
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/addresses`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<List<AddressResponse>>`
+- **Expected HTTP Status:** `200 OK`
+
+Returns all addresses owned by the authenticated user.
+
+---
+
+### Get Address by ID
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/addresses/{id}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<AddressResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+Returns a single address owned by the authenticated user.
+
+---
+
+### Create Address
+
+- **HTTP Method:** `POST`
+- **URL:** `/api/addresses`
+- **Request DTO:** `CreateAddressRequest`
+- **Response DTO:** `ApiResponse<AddressResponse>`
+- **Expected HTTP Status:** `201 Created`
+
+Creates a new address for the authenticated user.
+
+---
+
+### Update Address
+
+- **HTTP Method:** `PUT`
+- **URL:** `/api/addresses/{id}`
+- **Request DTO:** `UpdateAddressRequest`
+- **Response DTO:** `ApiResponse<AddressResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+Updates an existing address owned by the authenticated user.
+
+---
+
+### Delete Address
+
+- **HTTP Method:** `DELETE`
+- **URL:** `/api/addresses/{id}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<Void>`
+- **Expected HTTP Status:** `200 OK`
+
+Deletes one address owned by the authenticated user.
+
+---
+
+## DTOs
+
+### CreateAddressRequest
+
+```json
+{
+  "fullAddress": "string (required)",
+  "city": "string (required)",
+  "postalCode": "string (optional)",
+  "phone": "string (required)",
+  "defaultAddress": "boolean"
+}
+```
+
+### UpdateAddressRequest
+
+```json
+{
+  "fullAddress": "string (required)",
+  "city": "string (required)",
+  "postalCode": "string (optional)",
+  "phone": "string (required)",
+  "defaultAddress": "boolean"
+}
+```
+
+### AddressResponse
+
+```json
+{
+  "id": 1,
+  "fullAddress": "12 Avenue Hassan II",
+  "city": "Casablanca",
+  "postalCode": "20000",
+  "phone": "+212600000000",
+  "defaultAddress": true
+}
+```
+
+
+
+# Order API
+
+## Overview
+
+The Order API allows an authenticated user to convert their cart into an order and review their own order history.
+
+Rules:
+
+- only authenticated users can access these endpoints
+- a user can only access their own orders
+- the order is created from the current cart content
+- the cart must contain at least one item
+- the shipping address must exist and belong to the authenticated user
+- stock is validated before the order is created
+- stock is decremented only after validation succeeds
+- the order status is always `PENDING` when created
+- cart items are removed after a successful order creation
+- unit prices, subtotals and totals are always computed by the server
+
+Order statuses:
+
+- `PENDING`
+- `PAID`
+- `PROCESSING`
+- `SHIPPED`
+- `DELIVERED`
+- `CANCELLED`
+
+---
+
+## Endpoints
+
+### Create Order
+
+- **HTTP Method:** `POST`
+- **URL:** `/api/orders`
+- **Request DTO:** `CreateOrderRequest`
+- **Response DTO:** `ApiResponse<OrderResponse>`
+- **Expected HTTP Status:** `201 Created`
+
+Creates a new order from the authenticated user's cart.
+
+---
+
+### Get Order History
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/orders`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<Page<OrderSummaryResponse>>`
+- **Expected HTTP Status:** `200 OK`
+
+Returns only the authenticated user's orders, sorted by `createdAt` descending by default, with Spring pagination support.
+
+---
+
+### Get Order Details
+
+- **HTTP Method:** `GET`
+- **URL:** `/api/orders/{id}`
+- **Request DTO:** N/A
+- **Response DTO:** `ApiResponse<OrderResponse>`
+- **Expected HTTP Status:** `200 OK`
+
+Returns the detailed view of a single order owned by the authenticated user.
+
+---
+
+## DTOs
+
+### CreateOrderRequest
+
+```json
+{
+  "fullAddress": "12 Avenue Hassan II",
+  "city": "Casablanca",
+  "postalCode": "20000",
+  "phone": "+212600000000"
+}
+```
+
+### ShippingAddressSnapshot
+
+```json
+{
+  "fullAddress": "12 Avenue Hassan II",
+  "city": "Casablanca",
+  "postalCode": "20000",
+  "phone": "+212600000000"
+}
+```
+
+### OrderSummaryResponse
+
+```json
+{
+  "id": 1001,
+  "status": "PENDING",
+  "createdAt": "2026-07-29T10:15:30",
+  "totalItems": 3,
+  "totalPrice": 449.97
+}
+```
+
+### OrderItemResponse
+
+```json
+{
+  "productVariantId": 20,
+  "productName": "Hydrating Face Cream",
+  "sku": "HFC-50ML",
+  "quantity": 3,
+  "unitPrice": 149.99,
+  "subtotal": 449.97
+}
+```
+
+### AddressResponse
+
+```json
+{
+  "id": 4,
+  "fullAddress": "12 Avenue Hassan II",
+  "city": "Casablanca",
+  "postalCode": "20000",
+  "phone": "+212600000000",
+  "defaultAddress": true
+}
+```
+
+### OrderResponse
+
+```json
+{
+  "id": 1001,
+  "status": "PENDING",
+  "createdAt": "2026-07-29T10:15:30",
+  "shippingAddress": {
+    "fullAddress": "12 Avenue Hassan II",
+    "city": "Casablanca",
+    "postalCode": "20000",
+    "phone": "+212600000000"
+  },
+  "items": [
+    {
+      "productVariantId": 20,
+      "productName": "Hydrating Face Cream",
+      "sku": "HFC-50ML",
+      "quantity": 3,
+      "unitPrice": 149.99,
+      "subtotal": 449.97
+    }
+  ],
+  "totalItems": 3,
+  "totalPrice": 449.97
+}
+```
+
+
+
 # User API
 
 ## Overview
