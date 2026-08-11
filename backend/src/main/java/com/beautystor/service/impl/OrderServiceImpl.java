@@ -1,5 +1,6 @@
 package com.beautystor.service.impl;
 
+import com.beautystor.dto.order.AdminOrderResponse;
 import com.beautystor.dto.order.CreateOrderRequest;
 import com.beautystor.dto.order.OrderResponse;
 import com.beautystor.dto.order.OrderSummaryResponse;
@@ -97,6 +98,34 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new EntityNotFoundException("Order with ID " + orderId + " not found"));
 
         return orderMapper.toResponse(order);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<AdminOrderResponse> getAllForAdmin(Pageable pageable) {
+        return orderRepository.findAllByOrderByCreatedAtDesc(pageable)
+                .map(orderMapper::toAdminResponse);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public AdminOrderResponse getByIdForAdmin(long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException("Order with ID " + orderId + " not found"));
+
+        return orderMapper.toAdminResponse(order);
+    }
+
+    @Override
+    @Transactional
+    public AdminOrderResponse updateOrderStatus(long orderId, OrderStatus status) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException("Order with ID " + orderId + " not found"));
+
+        order.setStatus(status);
+        Order updatedOrder = orderRepository.save(order);
+
+        return orderMapper.toAdminResponse(updatedOrder);
     }
 
     private List<ValidatedCartLine> validateCartLines(List<CartItem> cartItems) {

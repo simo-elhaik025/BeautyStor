@@ -1,5 +1,7 @@
 package com.beautystor.mapper;
 
+import com.beautystor.dto.order.AdminOrderItemResponse;
+import com.beautystor.dto.order.AdminOrderResponse;
 import com.beautystor.dto.order.OrderItemResponse;
 import com.beautystor.dto.order.OrderResponse;
 import com.beautystor.dto.order.OrderSummaryResponse;
@@ -44,6 +46,27 @@ public class OrderMapper {
                 totalPrice(items));
     }
 
+    public AdminOrderResponse toAdminResponse(Order order) {
+        List<OrderItem> items = safeItems(order);
+        String userName = buildUserName(order);
+        String userEmail = order.getUser() != null ? order.getUser().getEmail() : null;
+
+        return new AdminOrderResponse(
+                order.getId(),
+                order.getOrderNumber(),
+                order.getUserId(),
+                userEmail,
+                userName,
+                order.getStatus(),
+                order.getCreatedAt(),
+                order.getPaymentMethod(),
+                order.getDeliveryNotes(),
+                toShippingAddressSnapshot(order.getShippingAddressSnapshot()),
+                items.stream().sorted(Comparator.comparingLong(OrderItem::getId)).map(this::toAdminItemResponse).toList(),
+                totalItems(items),
+                totalPrice(items));
+    }
+
     private OrderItemResponse toItemResponse(OrderItem orderItem) {
         BigDecimal unitPrice = orderItem.getPriceAtPurchase();
         BigDecimal subtotal = unitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity()));
@@ -61,6 +84,22 @@ public class OrderMapper {
                 subtotal);
     }
 
+    private AdminOrderItemResponse toAdminItemResponse(OrderItem orderItem) {
+        BigDecimal unitPrice = orderItem.getPriceAtPurchase();
+        BigDecimal subtotal = unitPrice.multiply(BigDecimal.valueOf(orderItem.getQuantity()));
+
+        return new AdminOrderItemResponse(
+                orderItem.getProductVariantId(),
+                orderItem.getProductNameSnapshot(),
+                orderItem.getProductVariantSku(),
+                orderItem.getVariantDisplayNameSnapshot(),
+                orderItem.getProductDescriptionSnapshot(),
+                orderItem.getProductImageUrlSnapshot(),
+                orderItem.getQuantity(),
+                unitPrice,
+                subtotal);
+    }
+
     private ShippingAddressSnapshot toShippingAddressSnapshot(String shippingAddressSnapshot) {
         if (shippingAddressSnapshot == null || shippingAddressSnapshot.isBlank()) {
             return null;
@@ -71,6 +110,23 @@ public class OrderMapper {
         } catch (JacksonException ex) {
             throw new IllegalStateException("Invalid shipping address snapshot", ex);
         }
+    }
+
+    private String buildUserName(Order order) {
+        if (order.getUser() == null) {
+            return null;
+        }
+        String firstName = order.getUser().getFirstName();
+        String lastName = order.getUser().getLastName();
+
+        if (firstName != null && lastName != null) {
+            return firstName + " " + lastName;
+        } else if (firstName != null) {
+            return firstName;
+        } else if (lastName != null) {
+            return lastName;
+        }
+        return null;
     }
 
     private List<OrderItem> safeItems(Order order) {

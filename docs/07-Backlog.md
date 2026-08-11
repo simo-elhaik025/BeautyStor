@@ -51,7 +51,7 @@ Sprint 6 — Commandes
 ✔ Adresse de livraison snapshot
 ✔ Total
 ✔ Historique
-□ Statuts
+✔ Statuts
 
 Sprint 7 — Administration
 □ Dashboard

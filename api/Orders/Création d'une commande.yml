@@ -10,11 +10,13 @@ http:
     type: json
     data: |-
       {
-          "addressId": 2
+        "fullAddress": "bensouda fes",
+        "city": "Fès",
+        "phone": "0612345679"
       }
   auth:
     type: bearer
-    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTMzODg4NSwiZXhwIjoxNzg1MzM5Nzg1fQ.zdPH-pf9TllTQAaEfyvGG0O8G2VzRMKNEGTb2oHlojQ
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NjEyMzYzNiwiZXhwIjoxNzg2MTI0NTM2fQ.PE_x4asqihpffI9tN6ZByheh9vBpGMjwgJ-l0sCN0PU
 
 settings:
   encodeUrl: true

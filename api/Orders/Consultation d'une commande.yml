@@ -5,8 +5,10 @@ info:
 
 http:
   method: GET
-  url: localhost:8080/api/orders/1
-  auth: inherit
+  url: localhost:8080/api/orders/2
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NjEyMzYzNiwiZXhwIjoxNzg2MTI0NTM2fQ.PE_x4asqihpffI9tN6ZByheh9vBpGMjwgJ-l0sCN0PU
 
 settings:
   encodeUrl: true
