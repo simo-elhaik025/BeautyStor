@@ -122,10 +122,21 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException("Order with ID " + orderId + " not found"));
 
+        validateStatusTransition(order.getStatus(), status);
+
         order.setStatus(status);
         Order updatedOrder = orderRepository.save(order);
 
         return orderMapper.toAdminResponse(updatedOrder);
+    }
+
+    private void validateStatusTransition(OrderStatus currentStatus, OrderStatus newStatus) {
+        boolean isValidTransition = (currentStatus == OrderStatus.PENDING && 
+                                     (newStatus == OrderStatus.DELIVERED || newStatus == OrderStatus.CANCELLED));
+
+        if (!isValidTransition) {
+            throw new IllegalArgumentException("Invalid status transition from " + currentStatus + " to " + newStatus);
+        }
     }
 
     private List<ValidatedCartLine> validateCartLines(List<CartItem> cartItems) {
