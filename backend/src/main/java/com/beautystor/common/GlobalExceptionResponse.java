@@ -31,9 +31,32 @@ public class GlobalExceptionResponse {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse<?>> handleMalformedJson(HttpMessageNotReadableException ex) {
-        String message = "Malformed JSON request";
+        String message = extractJsonErrorMessage(ex);
         List<ApiResponse.ErrorItem> errors = List.of(new ApiResponse.ErrorItem(message));
         return new ResponseEntity<>(new ApiResponse<>(errors), HttpStatus.BAD_REQUEST);
+    }
+
+    private String extractJsonErrorMessage(HttpMessageNotReadableException ex) {
+        String causeMessage = ex.getCause() != null ? ex.getCause().getMessage() : "";
+        
+        // Check if it's an invalid enum value
+        if (causeMessage.contains("not one of the values accepted for Enum class")) {
+            // Extract enum value and field name
+            // Message format: "not one of the values accepted for Enum class: [PENDING, DELIVERED, CANCELLED]"
+            if (causeMessage.contains("OrderStatus")) {
+                // Try to extract the invalid value from the cause
+                Throwable cause = ex.getCause();
+                if (cause != null && cause.toString().contains("InvalidFormatException")) {
+                    // Check if the message contains information about status field
+                    String exceptionMessage = ex.getMessage();
+                    if (exceptionMessage.contains("status")) {
+                        return "Invalid order status";
+                    }
+                }
+            }
+        }
+        
+        return "Malformed JSON request";
     }
 
     @ExceptionHandler({NoResourceFoundException.class})
@@ -72,3 +95,4 @@ public class GlobalExceptionResponse {
         return new ResponseEntity<>(new ApiResponse<>(errors), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
+

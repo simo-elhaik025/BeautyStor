@@ -2,5 +2,6 @@ package com.beautystor.enm;
 
 public enum Role {
     USER,
-    ADMIN
+    ADMIN,
+    DELIVERY_AGENT
 }
