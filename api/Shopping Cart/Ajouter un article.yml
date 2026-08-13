@@ -10,12 +10,12 @@ http:
     type: json
     data: |-
       {
-          "productVariantId": 1,
+          "productVariantId": 2,
           "quantity": 5
       }
   auth:
     type: bearer
-    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NTMzNDQwMSwiZXhwIjoxNzg1MzM1MzAxfQ.JVh3ot6WcB_1108U9YwVUMK3xdvyid_HKLsAl7UDYqU
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huMUBleGFtcGxlLmNvbSIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODY1NjM4NTIsImV4cCI6MTc4NjU2NDc1Mn0.Q_d8S1yqCEFnBXG6PbWzm0AGF8Y4m5ZTSG64ntK6O6c
 
 settings:
   encodeUrl: true

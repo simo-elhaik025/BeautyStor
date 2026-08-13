@@ -1,7 +1,7 @@
 info:
-  name: Authentication-user
+  name: Authentication-delivery
   type: http
-  seq: 4
+  seq: 5
 
 http:
   method: POST
@@ -10,7 +10,7 @@ http:
     type: json
     data: |-
       {
-        "email": "john1@example.com",
+        "email": "elhaik025@gmail.com",
         "password": "87651234"
       }
   auth: inherit

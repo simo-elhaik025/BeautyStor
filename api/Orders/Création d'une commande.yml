@@ -10,13 +10,13 @@ http:
     type: json
     data: |-
       {
-        "fullAddress": "bensouda fes",
-        "city": "Fès",
+        "fullAddress": "sidi moumen casablanca",
+        "city": "casa",
         "phone": "0612345679"
       }
   auth:
     type: bearer
-    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbGhhaWswMjVAZ21haWwuY29tIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTc4NjEyMzYzNiwiZXhwIjoxNzg2MTI0NTM2fQ.PE_x4asqihpffI9tN6ZByheh9vBpGMjwgJ-l0sCN0PU
+    token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huMUBleGFtcGxlLmNvbSIsInRva2VuX3R5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3ODY1NjM4NTIsImV4cCI6MTc4NjU2NDc1Mn0.Q_d8S1yqCEFnBXG6PbWzm0AGF8Y4m5ZTSG64ntK6O6c
 
 settings:
   encodeUrl: true

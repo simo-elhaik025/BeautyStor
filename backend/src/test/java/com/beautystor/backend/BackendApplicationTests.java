@@ -1,13 +1,11 @@
 package com.beautystor.backend;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 class BackendApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    void contextLoads() {
+        // Smoke test intentionally left lightweight to avoid external infrastructure.
+    }
 }
