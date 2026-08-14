@@ -2,8 +2,6 @@ package com.beautystor.common;
 
 import com.beautystor.enm.ResponseStatus;
 import lombok.Getter;
-import org.springframework.http.HttpStatusCode;
-
 import java.util.List;
 
 @Getter

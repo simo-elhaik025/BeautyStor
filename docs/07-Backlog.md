@@ -54,9 +54,9 @@ Sprint 6 — Commandes
 ✔ Statuts
 
 Sprint 7 — Administration
+✔ Commandes
+✔ Utilisateurs
 □ Dashboard
-□ Commandes
-□ Utilisateurs
 □ Statistiques
 
 Sprint 8 — Finalisation
