@@ -14,6 +14,9 @@ import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.core.converter.ModelConverters;
+import java.util.Map;
 
 @Configuration
 @OpenAPIDefinition(
@@ -32,6 +35,21 @@ public class OpenApiConfig {
     @Bean
     public OpenApiCustomizer commonErrorResponsesCustomizer() {
         return openApi -> {
+            // Ensure ApiResponse schema is present in components so $ref links resolve.
+            Components components = openApi.getComponents();
+            if (components == null) {
+                components = new Components();
+                openApi.setComponents(components);
+            }
+            try {
+                Map<String, Schema> schemas = ModelConverters.getInstance().read(com.beautystor.common.ApiResponse.class);
+                if (schemas != null) {
+                    schemas.forEach(components::addSchemas);
+                }
+            } catch (Exception ignored) {
+                // If model conversion fails, don't block OpenAPI generation; errors will surface in logs.
+            }
+
             if (openApi.getPaths() == null) {
                 return;
             }
