@@ -1,6 +1,7 @@
 package com.beautystor.dto.order;
 
 import com.beautystor.enm.OrderStatus;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Détail d'une commande côté administration.")
 public class AdminOrderResponse {
 
     private long id;

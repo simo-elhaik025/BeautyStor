@@ -1,5 +1,6 @@
 package com.beautystor.dto.statistics;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Jeu de statistiques administratives.")
 public class AdminStatisticsResponse {
 
     private LocalDate periodStart;

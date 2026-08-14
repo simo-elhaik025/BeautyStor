@@ -1,5 +1,6 @@
 package com.beautystor.dto.user;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Requête de mise à jour d'utilisateur.")
 public class UpdateUserRequest {
 
     @NotBlank(message = "Email is required")

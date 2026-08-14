@@ -1,5 +1,6 @@
 package com.beautystor.dto.cart;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Requête de mise à jour d'un article du panier.")
 public class UpdateCartItemRequest {
 
     @NotNull(message = "Quantity is required")

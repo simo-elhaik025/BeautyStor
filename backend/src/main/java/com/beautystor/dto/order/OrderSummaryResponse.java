@@ -1,6 +1,7 @@
 package com.beautystor.dto.order;
 
 import com.beautystor.enm.OrderStatus;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Résumé d'une commande côté client.")
 public class OrderSummaryResponse {
 
     private long id;

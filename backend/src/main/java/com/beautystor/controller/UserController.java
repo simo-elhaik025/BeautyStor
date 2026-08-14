@@ -6,6 +6,8 @@ import com.beautystor.dto.user.UpdateUserRequest;
 import com.beautystor.dto.user.UserResponse;
 import com.beautystor.service.UserService;
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@Tag(name = "Users", description = "Gestion administrative des utilisateurs.")
+@SecurityRequirement(name = "bearerAuth")
 public class UserController {
 
     private final UserService userService;

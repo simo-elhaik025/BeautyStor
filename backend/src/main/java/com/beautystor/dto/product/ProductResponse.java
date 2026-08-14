@@ -1,5 +1,6 @@
 package com.beautystor.dto.product;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Représentation simple d'un produit.")
 public class ProductResponse {
 
     private long id;

@@ -6,6 +6,8 @@ import com.beautystor.dto.category.UpdateCategoryRequest;
 import com.beautystor.dto.category.CategoryResponse;
 import com.beautystor.service.CategoryService;
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
+@Tag(name = "Categories", description = "Gestion des catégories.")
 public class CategoryController {
 
     private final CategoryService categoryService;
 
     @PostMapping
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ApiResponse<CategoryResponse>> create(@Valid @RequestBody CreateCategoryRequest request) {
         CategoryResponse categoryResponse = categoryService.create(request);
         ApiResponse<CategoryResponse> response = new ApiResponse<>(categoryResponse);
@@ -42,6 +46,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ApiResponse<CategoryResponse>> update(@PathVariable long id, @Valid @RequestBody UpdateCategoryRequest request) {
         CategoryResponse categoryResponse = categoryService.update(id, request);
         ApiResponse<CategoryResponse> response = new ApiResponse<>(categoryResponse);
@@ -49,6 +54,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ApiResponse<Void>> deleteCategory(@PathVariable Long id) {
 
         categoryService.delete(id);

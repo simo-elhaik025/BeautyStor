@@ -1,5 +1,6 @@
 package com.beautystor.dto.order;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Requête de création de commande.")
 public class CreateOrderRequest {
 
     @NotBlank(message = "Full address is required")

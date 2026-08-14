@@ -8,6 +8,7 @@ import com.beautystor.dto.auth.RefreshTokenRequest;
 import com.beautystor.dto.auth.TokenRefreshResponse;
 import com.beautystor.service.AuthenticationService;
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Auth", description = "Authentification et renouvellement de jetons.")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;

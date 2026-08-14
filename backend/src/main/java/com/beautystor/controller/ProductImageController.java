@@ -6,6 +6,8 @@ import com.beautystor.dto.productimage.UpdateProductImageRequest;
 import com.beautystor.dto.productimage.ProductImageResponse;
 import com.beautystor.service.ProductImageService;
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/product-images")
 @RequiredArgsConstructor
+@Tag(name = "Product Images", description = "Gestion des images produits.")
 public class ProductImageController {
 
     private final ProductImageService productImageService;
 
     @PostMapping
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ApiResponse<ProductImageResponse>> create(@Valid @RequestBody CreateProductImageRequest request) {
         ProductImageResponse productImageResponse = productImageService.create(request);
         ApiResponse<ProductImageResponse> response = new ApiResponse<>(productImageResponse);
@@ -42,6 +46,7 @@ public class ProductImageController {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ApiResponse<ProductImageResponse>> update(@PathVariable long id, @Valid @RequestBody UpdateProductImageRequest request) {
         ProductImageResponse productImageResponse = productImageService.update(id, request);
         ApiResponse<ProductImageResponse> response = new ApiResponse<>(productImageResponse);
@@ -49,6 +54,7 @@ public class ProductImageController {
     }
 
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         productImageService.delete(id);
         return ResponseEntity.ok(new ApiResponse<>((Void) null));

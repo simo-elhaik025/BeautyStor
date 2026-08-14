@@ -6,6 +6,8 @@ import com.beautystor.dto.product.UpdateProductRequest;
 import com.beautystor.dto.product.ProductResponse;
 import com.beautystor.service.ProductService;
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin/products")
 @RequiredArgsConstructor
+@Tag(name = "Admin Products", description = "Administration des produits.")
+@SecurityRequirement(name = "bearerAuth")
 public class AdminProductController {
 
     private final ProductService productService;

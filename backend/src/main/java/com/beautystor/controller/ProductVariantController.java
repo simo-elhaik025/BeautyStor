@@ -6,6 +6,8 @@ import com.beautystor.dto.productvariant.UpdateProductVariantRequest;
 import com.beautystor.dto.productvariant.ProductVariantResponse;
 import com.beautystor.service.ProductVariantService;
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/product-variants")
 @RequiredArgsConstructor
+@Tag(name = "Product Variants", description = "Gestion des variantes produits.")
 public class ProductVariantController {
 
     private final ProductVariantService productVariantService;
 
     @PostMapping
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ApiResponse<ProductVariantResponse>> create(@Valid @RequestBody CreateProductVariantRequest request) {
         ProductVariantResponse productVariantResponse = productVariantService.create(request);
         ApiResponse<ProductVariantResponse> response = new ApiResponse<>(productVariantResponse);
@@ -42,6 +46,7 @@ public class ProductVariantController {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ApiResponse<ProductVariantResponse>> update(@PathVariable long id, @Valid @RequestBody UpdateProductVariantRequest request) {
         ProductVariantResponse productVariantResponse = productVariantService.update(id, request);
         ApiResponse<ProductVariantResponse> response = new ApiResponse<>(productVariantResponse);
@@ -49,6 +54,7 @@ public class ProductVariantController {
     }
 
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         productVariantService.delete(id);
         return ResponseEntity.ok(new ApiResponse<>((Void) null));

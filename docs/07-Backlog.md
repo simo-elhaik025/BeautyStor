@@ -57,7 +57,7 @@ Sprint 7 — Administration
 ✔ Commandes
 ✔ Utilisateurs
 ✔ Dashboard
-□ Statistiques
+✔ Statistiques
 
 Sprint 8 — Finalisation
 □ Swagger

@@ -1,5 +1,6 @@
 package com.beautystor.dto.productimage;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Requête de création d'image produit.")
 public class CreateProductImageRequest {
 
     @NotNull(message = "Product ID is required")

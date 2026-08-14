@@ -3,6 +3,7 @@ package com.beautystor.dto.product;
 import com.beautystor.dto.brand.BrandResponse;
 import com.beautystor.dto.category.CategoryResponse;
 import com.beautystor.dto.productimage.ProductImageResponse;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Résumé produit public.")
 public class ProductSummaryResponse {
 
     private long id;

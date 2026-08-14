@@ -6,6 +6,8 @@ import com.beautystor.dto.user.UpdateUserStatusRequest;
 import com.beautystor.dto.user.UserResponse;
 import com.beautystor.service.UserService;
 import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,13 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/admin/users")
 @RequiredArgsConstructor
+@Tag(name = "Admin Users", description = "Administration des utilisateurs.")
+@SecurityRequirement(name = "bearerAuth")
 public class AdminUserController {
 
     private final UserService userService;
 
     @GetMapping
     public ResponseEntity<ApiResponse<Page<UserResponse>>> getAll(
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
         return ResponseEntity.ok(new ApiResponse<>(userService.getAll(pageable)));
     }
 

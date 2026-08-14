@@ -1,5 +1,6 @@
 package com.beautystor.dto.productvariant;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Requête de création de variante produit.")
 public class CreateProductVariantRequest {
 
     @NotNull(message = "Product ID is required")

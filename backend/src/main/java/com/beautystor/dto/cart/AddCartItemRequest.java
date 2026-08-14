@@ -1,5 +1,6 @@
 package com.beautystor.dto.cart;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Requête d'ajout d'un article au panier.")
 public class AddCartItemRequest {
 
     @NotNull(message = "Product variant ID is required")

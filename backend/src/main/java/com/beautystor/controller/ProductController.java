@@ -4,16 +4,19 @@ import com.beautystor.common.ApiResponse;
 import com.beautystor.dto.product.ProductDetailsResponse;
 import com.beautystor.dto.product.ProductSummaryResponse;
 import com.beautystor.service.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springdoc.core.annotations.ParameterObject;
 
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
-    public class ProductController {
+@Tag(name = "Products", description = "Consultation publique du catalogue produits.")
+public class ProductController {
 
     private final ProductService productService;
 
@@ -23,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
             @RequestParam(required = false) Long category,
             @RequestParam(required = false) Long brand,
             @RequestParam(required = false) Boolean available,
-            Pageable pageable) {
+            @ParameterObject Pageable pageable) {
         Page<ProductSummaryResponse> products = productService.getAll(search, category, brand, available, pageable);
         ApiResponse<Page<ProductSummaryResponse>> response = new ApiResponse<>(products);
         return ResponseEntity.ok(response);

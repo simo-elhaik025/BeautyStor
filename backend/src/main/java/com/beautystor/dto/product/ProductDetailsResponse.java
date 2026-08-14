@@ -4,6 +4,7 @@ import com.beautystor.dto.brand.BrandResponse;
 import com.beautystor.dto.category.CategoryResponse;
 import com.beautystor.dto.productimage.ProductImageResponse;
 import com.beautystor.dto.productvariant.ProductVariantResponse;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Détail produit public.")
 public class ProductDetailsResponse {
 
     private long id;
