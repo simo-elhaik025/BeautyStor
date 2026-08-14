@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -32,6 +33,13 @@ public class GlobalExceptionResponse {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse<?>> handleMalformedJson(HttpMessageNotReadableException ex) {
         String message = extractJsonErrorMessage(ex);
+        List<ApiResponse.ErrorItem> errors = List.of(new ApiResponse.ErrorItem(message));
+        return new ResponseEntity<>(new ApiResponse<>(errors), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ApiResponse<?>> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String message = "Invalid " + ex.getName();
         List<ApiResponse.ErrorItem> errors = List.of(new ApiResponse.ErrorItem(message));
         return new ResponseEntity<>(new ApiResponse<>(errors), HttpStatus.BAD_REQUEST);
     }
@@ -95,4 +103,3 @@ public class GlobalExceptionResponse {
         return new ResponseEntity<>(new ApiResponse<>(errors), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
-
