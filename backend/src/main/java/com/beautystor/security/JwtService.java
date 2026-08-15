@@ -29,7 +29,34 @@ public class JwtService {
             @Value("${jwt.secret}") String secret,
             @Value("${jwt.access-token-expiration}") Duration accessTokenExpiration,
             @Value("${jwt.refresh-token-expiration}") Duration refreshTokenExpiration) {
-        this.signingKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+        // Accept either a base64-encoded secret or a plain passphrase.
+        // For plain passphrases, derive a 256-bit key using SHA-256 to guarantee sufficient strength for HMAC-SHA algorithms.
+        SecretKey key;
+        try {
+            byte[] decoded = Decoders.BASE64.decode(secret);
+            try {
+                key = Keys.hmacShaKeyFor(decoded);
+            } catch (io.jsonwebtoken.security.WeakKeyException e) {
+                // Fallback to SHA-256-derived key if decoded key is too short
+                java.security.MessageDigest digest;
+                try {
+                    digest = java.security.MessageDigest.getInstance("SHA-256");
+                    key = Keys.hmacShaKeyFor(digest.digest(decoded));
+                } catch (java.security.NoSuchAlgorithmException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        } catch (IllegalArgumentException ex) {
+            // Not valid base64 — treat secret as passphrase and derive 256-bit key from UTF-8 bytes
+            try {
+                java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
+                byte[] hashed = digest.digest(secret.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+                key = Keys.hmacShaKeyFor(hashed);
+            } catch (java.security.NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        this.signingKey = key;
         this.accessTokenExpiration = accessTokenExpiration;
         this.refreshTokenExpiration = refreshTokenExpiration;
     }

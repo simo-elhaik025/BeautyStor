@@ -60,7 +60,7 @@ Sprint 7 — Administration
 ✔ Statistiques
 
 Sprint 8 — Finalisation
-□ Swagger
+✔ Swagger
 ✔ Tests
 □ Docker
 □ Optimisation
