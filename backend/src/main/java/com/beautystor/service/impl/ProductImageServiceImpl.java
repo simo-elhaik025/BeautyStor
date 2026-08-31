@@ -8,6 +8,7 @@ import com.beautystor.exception.ProductImageException;
 import com.beautystor.repository.ProductImageRepository;
 import com.beautystor.repository.ProductRepository;
 import com.beautystor.service.ProductImageService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     public ProductImageResponse getById(long id) {
         ProductImage productImage = productImageRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("ProductImage with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("ProductImage with ID " + id + " not found"));
 
         return mapToProductImageResponse(productImage);
     }
@@ -56,7 +57,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     public ProductImageResponse update(long id, UpdateProductImageRequest request) {
         ProductImage productImage = productImageRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("ProductImage with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("ProductImage with ID " + id + " not found"));
 
         validateProduct(request.getProductId());
         validatePrimaryImageForUpdate(request.getProductId(), request.getPrimary(), id);
@@ -75,7 +76,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Override
     public void delete(long id) {
         if (!productImageRepository.existsById(id)) {
-            throw new IllegalArgumentException("ProductImage with ID " + id + " not found");
+            throw new EntityNotFoundException("ProductImage with ID " + id + " not found");
         }
         productImageRepository.deleteById(id);
     }

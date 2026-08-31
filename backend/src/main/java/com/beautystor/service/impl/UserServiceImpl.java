@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse update(long id, UpdateUserRequest request) {
         if (!userRepository.existsById(id)) {
-            throw new IllegalArgumentException("User with ID " + id + " not found");
+            throw new EntityNotFoundException("User with ID " + id + " not found");
         }
 
         if (userRepository.existsByEmailAndIdNot(request.getEmail(), id)) {

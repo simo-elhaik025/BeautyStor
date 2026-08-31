@@ -7,6 +7,7 @@ import com.beautystor.entity.Category;
 import com.beautystor.repository.CategoryRepository;
 import com.beautystor.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse getById(long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Category with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Category with ID " + id + " not found"));
 
         return mapToCategoryResponse(category);
     }
@@ -52,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse update(long id, UpdateCategoryRequest request) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Category with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Category with ID " + id + " not found"));
 
         validateParentCategory(request.getParentId());
 
@@ -69,7 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(long id) {
         if (!categoryRepository.existsById(id)) {
-            throw new IllegalArgumentException("Category with ID " + id + " not found");
+            throw new EntityNotFoundException("Category with ID " + id + " not found");
         }
         categoryRepository.deleteById(id);
     }

@@ -12,6 +12,7 @@ import com.beautystor.repository.CategoryRepository;
 import com.beautystor.repository.ProductRepository;
 import com.beautystor.specification.ProductSpecifications;
 import com.beautystor.service.ProductService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -68,7 +69,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public ProductDetailsResponse getBySlug(String slug) {
         Product product = productRepository.findBySlugAndIsAvailableTrue(slug)
-                .orElseThrow(() -> new IllegalArgumentException("Product with slug '" + slug + "' not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Product with slug '" + slug + "' not found"));
 
         return productPublicMapper.toDetailsResponse(product);
     }
@@ -84,7 +85,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse getByIdForAdmin(long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Product with ID " + id + " not found"));
 
         return mapToProductResponse(product);
     }
@@ -92,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse update(long id, UpdateProductRequest request) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Product with ID " + id + " not found"));
 
         validateBrand(request.getBrandId());
         validateCategory(request.getCategoryId());
@@ -113,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(long id) {
         if (!productRepository.existsById(id)) {
-            throw new IllegalArgumentException("Product with ID " + id + " not found");
+            throw new EntityNotFoundException("Product with ID " + id + " not found");
         }
         productRepository.deleteById(id);
     }

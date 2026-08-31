@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
         cartItemRepository.deleteByCartId(cart.getId());
 
         Order createdOrder = orderRepository.findByIdAndUserId(savedOrder.getId(), userId)
-                .orElseThrow(() -> new IllegalArgumentException("Order with ID " + savedOrder.getId() + " not found"));
+                .orElseThrow(() -> new IllegalStateException("Order with ID " + savedOrder.getId() + " not found"));
 
         return orderMapper.toResponse(createdOrder);
     }

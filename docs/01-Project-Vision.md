@@ -10,7 +10,6 @@ L'architecture devra permettre l'ajout futur d'autres catégories de produits (v
 
 - Backend : Spring Boot (API REST)
 - Base de données : MySQL
-- Frontend : React
 - Gestion des versions : Git & GitHub
 - Documentation : Markdown
 

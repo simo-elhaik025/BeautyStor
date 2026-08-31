@@ -7,6 +7,7 @@ import com.beautystor.entity.ProductVariant;
 import com.beautystor.repository.ProductRepository;
 import com.beautystor.repository.ProductVariantRepository;
 import com.beautystor.service.ProductVariantService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,7 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     @Override
     public ProductVariantResponse getById(long id) {
         ProductVariant productVariant = productVariantRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("ProductVariant with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("ProductVariant with ID " + id + " not found"));
 
         return mapToProductVariantResponse(productVariant);
     }
@@ -55,7 +56,7 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     @Override
     public ProductVariantResponse update(long id, UpdateProductVariantRequest request) {
         ProductVariant productVariant = productVariantRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("ProductVariant with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("ProductVariant with ID " + id + " not found"));
 
         validateProduct(request.getProductId());
         validateSkuUniquenessForUpdate(request.getSku(), id);
@@ -74,7 +75,7 @@ public class ProductVariantServiceImpl implements ProductVariantService {
     @Override
     public void delete(long id) {
         if (!productVariantRepository.existsById(id)) {
-            throw new IllegalArgumentException("ProductVariant with ID " + id + " not found");
+            throw new EntityNotFoundException("ProductVariant with ID " + id + " not found");
         }
         productVariantRepository.deleteById(id);
     }

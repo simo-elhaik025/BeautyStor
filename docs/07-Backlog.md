@@ -62,8 +62,8 @@ Sprint 7 — Administration
 Sprint 8 — Finalisation
 ✔ Swagger
 ✔ Tests
-□ Docker
-□ Optimisation
+✔ Docker
+✔ Optimisation
 □ Documentation
 □ CI/CD
 □ Déploiement

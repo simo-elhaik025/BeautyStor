@@ -7,6 +7,7 @@ import com.beautystor.entity.Brand;
 import com.beautystor.repository.BrandRepository;
 import com.beautystor.service.BrandService;
 import lombok.RequiredArgsConstructor;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public BrandResponse getById(long id) {
         Brand brand = brandRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Brand with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Brand with ID " + id + " not found"));
 
         return mapToBrandResponse(brand);
     }
@@ -48,7 +49,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public BrandResponse update(long id, UpdateBrandRequest request) {
         Brand brand = brandRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Brand with ID " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Brand with ID " + id + " not found"));
 
         brand.setName(request.getName());
         brand.setSlug(request.getSlug());
@@ -62,7 +63,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public void delete(long id) {
         if (!brandRepository.existsById(id)) {
-            throw new IllegalArgumentException("Brand with ID " + id + " not found");
+            throw new EntityNotFoundException("Brand with ID " + id + " not found");
         }
         brandRepository.deleteById(id);
     }
