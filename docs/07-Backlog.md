@@ -64,6 +64,6 @@ Sprint 8 — Finalisation
 ✔ Tests
 ✔ Docker
 ✔ Optimisation
-□ Documentation
-□ CI/CD
+✔ Documentation
+✔ CI/CD
 □ Déploiement

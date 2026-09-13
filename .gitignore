@@ -1,16 +1,45 @@
-# Backend
-backend/target/
-backend/.mvn/
+# Build artifacts
+target/
+out/
+build/
+dist/
+*.class
+
+# Maven
+*.jar
 
 # Frontend
 frontend/node_modules/
 frontend/dist/
+node_modules/
 
 # IDE
 .vscode/
 .idea/
+*.iws
+*.iml
+*.ipr
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Local configuration and secrets
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+*credentials*
+*.log
+
+# Database backups
+*.sql
+!docs/**/*.sql
+
+# Temporary reports
+DUAL_ENVIRONMENT_CONFIG.md
+MIGRATION_SUMMARY.md
+RAPPORT_CORRECTION.md
